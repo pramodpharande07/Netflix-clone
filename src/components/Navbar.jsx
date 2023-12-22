@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import styled from "styled-components"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from "../Assects/logo.png";
 import {FaPowerOff, FaSearch} from 'react-icons/fa';
 import firebaseAuth from '../utils/firebase.config';
-import { signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 export default function Navbar({isScrolled}) {
   const links = [
     {name : "Home", Link : "/"},
@@ -12,6 +12,12 @@ export default function Navbar({isScrolled}) {
     {name : "Movies", Link : "/movies"},
     {name : "My List", Link : "/mylist"}
   ]
+  const navigate = useNavigate();
+  
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if(!currentUser) navigate("/login")
+  })
+
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
   return (
