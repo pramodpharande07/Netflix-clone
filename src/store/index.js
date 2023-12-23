@@ -63,18 +63,6 @@ import { API_KEY, TMDB_BASE_URL } from "../utils/constants";
         return moviesArray;
       };
 
-    //   export const fetchDataByGenre = createAsyncThunk(
-    //     "netflix/genre",
-    //     async ({ genre, type }, thunkAPI) => {
-    //       const {
-    //         netflix: { genres },
-    //       } = thunkAPI.getState();
-    //       return getRawData(
-    //         `https://api.themoviedb.org/3/discover/${type}?api_key=e1d81f1021c0573a2ac45893d51fd4f6&with_genres=${genre}`,
-    //         genres
-    //       );
-    //     }
-    //   );
 
       export const fetchMovies = createAsyncThunk(
         "netflix/trending",
@@ -97,6 +85,19 @@ import { API_KEY, TMDB_BASE_URL } from "../utils/constants";
         //   console.log(data);
         }
       );
+      export const fetchDataByGenre = createAsyncThunk(
+        "netflix/moviesByGenres",
+        async ({ genre, type }, thunkAPI) => {
+          const {
+            netflix: { genres },
+          } = thunkAPI.getState();
+          return getRawData(
+            `https://api.themoviedb.org/3/discover/${type}?api_key=3d39d6bfe362592e6aa293f01fbcf9b9&with_genres=${genre}`,
+            genres
+          );
+        }
+      );
+      
 
      const NetflixSlice = createSlice({
         name: "Netflix",
@@ -110,6 +111,9 @@ import { API_KEY, TMDB_BASE_URL } from "../utils/constants";
             builder.addCase(fetchMovies.fulfilled, (state, action) => {
                 state.movies = action.payload;
                
+            });
+            builder.addCase(fetchDataByGenre.fulfilled, (state, action) => {
+              state.movies = action.payload;
             });
         },
     
