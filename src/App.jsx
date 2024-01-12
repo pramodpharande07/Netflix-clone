@@ -7,6 +7,7 @@ import Player from './pages/Player'
 // import Movies from './pages/Movies'
 import MoviePage from './pages/Movies'
 import TVShows from './pages/TVShows'
+import UserLiked from './pages/UserLiked'
 
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/player" element={<Player/>}></Route>
         <Route path="/movies" element={<MoviePage/>}></Route>
         <Route path="/tv" element={<TVShows/>}></Route>
+        <Route path="/My List" element={<UserLiked/>}/>
        
         <Route path="/" element={<Netflix/>}></Route>
      </Routes>
